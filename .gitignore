@@ -4,3 +4,4 @@
 
 # Whitelist specific folders
 !/nvim/
+!/kmonad/

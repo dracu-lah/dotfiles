@@ -1,0 +1,39 @@
+(defcfg
+	input (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
+	output (uinput-sink "KMonad mkb kbd")
+	fallthrough true
+	allow-cmd false
+)
+
+(defalias
+ fn1 (tap-hold-next-release 250 esc (layer-toggle vimMode))
+)
+
+(defsrc
+  tab  q    w    e    r    t    y    u    i    o    p    [     ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '          ret
+  lsft z    x    c    v    b    n    m    ,    .    /               rsft
+  wkup lctl lmet lalt           spc            ralt sys  rctl  pgup up   pgdn
+)
+
+(deflayer baseLayer
+  tab  q    w    e    r    t    y    u    i    o    p    [     ]    \
+  @fn1 a    s    d    f    g    h    j    k    l    ;    '          ret
+  lsft z    x    c    v    b    n    m    ,    .    /               rsft 
+  wkup lctl lmet lalt           spc            ralt sys  rctl  del up   XX
+)
+
+(deflayer vimMode
+  _    _    _    _    _    _    _    _    _    _    _    _     _    _
+  _    _    _    _    _    _    left down up   rght _    _          _
+  _    _    _    _    _    _    _    _    _    _    _               _
+  _    _    _    lctl           _                 _    _    _     caps    _   _
+)
+
+
+(deflayer colemakDHM
+  _    q    w    f    p    b    j    l    u    y    ;    _     _    _
+  _    a    r    s    t    g    m    n    e    i    o    _          _
+  _    z    x    c    d    v    k    h    ,    .    /               _
+  _    _    _    _               _                 _    _    _      _     _   _
+)
