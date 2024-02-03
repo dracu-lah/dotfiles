@@ -5,3 +5,5 @@
 # Whitelist specific folders
 !/nvim/
 !/kmonad/
+!/sway/
+!/dunst/
