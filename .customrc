@@ -1,6 +1,9 @@
 source "$HOME/.cargo/env"
+
+# add vi features in shell
 set -o vi
 
+#custom aliases
 alias vim=nvim
 alias _c='cd ~/projects/company'
 
@@ -8,9 +11,27 @@ alias install='sudo nala install'
 alias remove='sudo nala remove'
 alias update='sudo nala update && sudo nala upgrade -y'
 alias studio='flatpak run com.google.AndroidStudio'
+alias lg='lazygit'
+lg()
+{
+    export LAZYGIT_NEW_DIR_FILE=~/.lazygit/newdir
 
+    lazygit "$@"
+
+    if [ -f $LAZYGIT_NEW_DIR_FILE ]; then
+            cd "$(cat $LAZYGIT_NEW_DIR_FILE)"
+            rm -f $LAZYGIT_NEW_DIR_FILE > /dev/null
+    fi
+}
+
+
+
+# android studio
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+
+
 
 # Clear Font Cache ->  fc-cache -v -f ~/.fonts
