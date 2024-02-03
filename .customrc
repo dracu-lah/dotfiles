@@ -1,0 +1,16 @@
+source "$HOME/.cargo/env"
+set -o vi
+
+alias vim=nvim
+alias _c='cd ~/projects/company'
+
+alias install='sudo nala install'
+alias remove='sudo nala remove'
+alias update='sudo nala update && sudo nala upgrade -y'
+alias studio='flatpak run com.google.AndroidStudio'
+
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+# Clear Font Cache ->  fc-cache -v -f ~/.fonts
