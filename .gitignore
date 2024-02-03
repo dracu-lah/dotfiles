@@ -1,6 +1,6 @@
 # .gitignore
 # Ignore all files and folders by default
-./*
+/*
 
 # Whitelist specific folders
-!./nvim/
+!/nvim/
