@@ -1,6 +1,6 @@
 
 (defcfg
- input (device-file "/dev/input/by-path/pci-0000:00:14.0-usb-0:2:1.0-event-kbd")
+ input (device-file "/dev/input/by-id/usb-SEMICO_USB_Keyboard-event-kbd")
  output (uinput-sink "KMonad mkb kbd")
  fallthrough true
  allow-cmd false
