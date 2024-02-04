@@ -1,5 +1,14 @@
-source "$HOME/.cargo/env"
-
+apt() { 
+  command nala "$@"
+}
+sudo() {
+  if [ "$1" = "apt" ]; then
+    shift
+    command sudo nala "$@"
+  else
+    command sudo "$@"
+  fi
+}
 # add vi features in shell
 set -o vi
 
