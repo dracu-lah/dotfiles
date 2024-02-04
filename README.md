@@ -28,6 +28,9 @@ This repository contains my personal dotfiles for setting up Sway window manager
 - Nemo
 - Waylogout
 - Foot
+- zsh (zim is also installed)
+
+
 
 ## Fonts
 - Font Awesome 6
