@@ -4,6 +4,7 @@ This repository contains my personal dotfiles for setting up Sway window manager
 
 ## Software Installed
 - SwayWM
+- Sway Lock Effects
 - Ly
 - Brave
 - OBS
