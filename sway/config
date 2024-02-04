@@ -291,6 +291,9 @@ bar {
 for_window [app_id="float"] floating enable;
 for_window [app_id="org.kde.kdeconnect.daemon"] floating enable;
 for_window [title="File Operation Progress"] floating enable;
+#floating for wifi-qr
+for_window [title="zbar barcode reader"] floating enable;
+for_window [app_id="zenity"] floating enable;
 
 
 # Autolaunch
