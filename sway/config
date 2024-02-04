@@ -63,6 +63,26 @@ exec swayidle -w \
         timeout 600 'systemctl suspend' \
         before-sleep 'swaylock -f -i $lock_bg'
 
+
+
+
+
+# managing input devices
+  input "1739:0:Synaptics_TM3276-022" {
+      dwt enabled
+      tap enabled
+      natural_scroll enabled
+      middle_emulation enabled
+      accel_profile flat
+      pointer_accel 0.4
+  }
+
+  input type:keyboard {
+    repeat_rate 50
+  }
+#
+
+
 ### Key bindings
 #
 # Basics:
@@ -271,7 +291,9 @@ bar {
 for_window [app_id="float"] floating enable;
 for_window [app_id="org.kde.kdeconnect.daemon"] floating enable;
 for_window [title="File Operation Progress"] floating enable;
-for_window [app_id="com.github.hluk.copyq"] floating enable; 
+#floating for wifi-qr
+for_window [title="zbar barcode reader"] floating enable;
+for_window [app_id="zenity"] floating enable;
 
 
 # Autolaunch
