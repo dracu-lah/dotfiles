@@ -1,37 +1,29 @@
 #!/usr/bin/env bash
 
-
 # Modules
 ram=$(free -h | awk 'NR==2 {print $3}')
 temp=$(cat /sys/class/thermal/thermal_zone0/temp | cut -c 1-2)
-# wifi_name=$(/sbin/iwgetid -r)
+wifi_name=$(/sbin/iwgetid -r)
 ip=$(ip addr show $(ip route show | grep -oP 'default.*dev \K\S+') | awk '$1 == "inet" {gsub(/\/.*$/, "", $2); print $2}')
-# net=$($src/netspeed)
-# charge=$(upower -i /org/freedesktop/UPower/devices/DisplayDevice | grep -E "percentage" | awk '{printf "%.0f%%\n", $2}')
+charge=$(upower -i /org/freedesktop/UPower/devices/DisplayDevice | grep -E "percentage" | awk '{printf "%.0f%%\n", $2}')
 vol=$(pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}')
 time=$(date +%b\ %d/%m\ %A\ %I:%M\ %p)
-# batstate=$(upower -i /org/freedesktop/UPower/devices/DisplayDevice | awk '/state/ {print $2}')
+batstate=$(upower -i /org/freedesktop/UPower/devices/DisplayDevice | awk '/state/ {print $2}')
 storage=$(df -h / | awk 'NR==2  {print $5}')
 
-
-
 # Logical functions
-# -----------------------------------------------------------------------
-# if [ $batstate == "charging" ]
-# then
-#   state="CHARGING..."
-# elif [ $batstate == "fully-charged" ]
-# then
-#   state="FULL"
-# elif [ $( echo $charge | cut -d% -f1)  -lt 30 ] && [ $batstate != "charging" ]
-# then
-#   state="PLEASE CHARGE ME!"
-# else
-#   state="BAT"
-# fi
-#
+-----------------------------------------------------------------------
+if [ $batstate == "charging" ]; then
+	state="CHARGING..."
+elif [ $batstate == "fully-charged" ]; then
+	state="FULL"
+elif [ $(echo $charge | cut -d% -f1) -lt 30 ] && [ $batstate != "charging" ]; then
+	state="PLEASE CHARGE ME!"
+else
+	state="BAT"
+fi
 
 # Bar runs here
 # -----------------------------------------------------------------------
-# echo "$wifi_name | $ip    CPU $cpu $temp°C   DISK $storage   MEM $ram   $state $charge   VOL $vol   $time  "
-echo "$ip    CPU $temp°C   DISK $storage   MEM $ram    VOL $vol    $time   "
+
+echo "$wifi_name $ip    CPU $temp°C   DISK $storage   MEM $ram  $state $charge   VOL $vol    $time   "
