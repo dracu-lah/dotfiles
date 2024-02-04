@@ -27,8 +27,8 @@ set $term foot
 set $browser brave-browser
 set $file-manager nemo
 set $menu wofi --show drun
-set $lock_bg ~/Pictures/Wallpapers/wallhaven-2yjp6x.png
-set $screen_bg ~/Pictures/Wallpapers/wallhaven-2yjp6x.png
+set $lock_bg ./lock-wall.jpg
+set $screen_bg ./wall.jpg 
 
 include /etc/sway/config-vars.d/*
 
