@@ -3,6 +3,7 @@
 This repository contains my personal dotfiles for setting up Sway window manager on Debian 12. Below is the list of software installed and the fonts used.
 
 ## Software Installed
+- network-manager
 - SwayWM
 - Sway Lock Effects
 - Ly
