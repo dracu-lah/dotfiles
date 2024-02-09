@@ -10,7 +10,7 @@ vol=$(pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}')
 time=$(date +%b\ %d/%m\ %A\ %I:%M\ %p)
 batstate=$(upower -i /org/freedesktop/UPower/devices/DisplayDevice | awk '/state/ {print $2}')
 storage=$(df -h / | awk 'NR==2  {print $5}')
-
+mute=$(pactl get-sink-mute @DEFAULT_SINK@ | awk '{print $2}')
 # Logical functions
 -----------------------------------------------------------------------
 if [ $batstate == "charging" ]; then
@@ -23,7 +23,10 @@ else
 	state="BAT"
 fi
 
+if [ $mute == "yes" ]; then
+	isMuted="muted"
+fi
 # Bar runs here
 # -----------------------------------------------------------------------
 
-echo "$wifi_name $ip    CPU $temp°C   DISK $storage   MEM $ram  $state $charge   VOL $vol    $time   "
+echo "$wifi_name $ip    CPU $temp°C   DISK $storage   MEM $ram  $state $charge   VOL $vol $isMuted   $time   "
