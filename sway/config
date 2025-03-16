@@ -24,11 +24,11 @@ set $right l
 
 
 set $term foot
-set $browser brave-browser
+set $browser /usr/bin/zen/zen 
 set $file-manager nemo
 set $menu wofi --show drun
-set $lock_bg ./lock-wall.jpg
-set $screen_bg ./wall.jpg 
+set $lock_bg  ~/.config/sway/lock-wall.jpg 
+set $screen_bg ./wall.jpg
 
 include /etc/sway/config-vars.d/*
 
@@ -55,14 +55,15 @@ client.focused_inactive #000000 #000000 #ffffff
 output * bg $screen_bg fill
 
 # Add section for handling locking and sleeping
-bindsym Alt+l exec 'swaylock -i $lock_bg'
 
 exec swayidle -w \
-        timeout 300 'swaymsg "output * dpms off"' \
-        resume 'swaymsg "output * dpms on"' \
-        timeout 600 'systemctl suspend' \
-        before-sleep 'swaylock -f -i $lock_bg'
+         timeout 60 'swaylock -i $lock_bg -f -c 000000' \
+         timeout 90 'swaymsg "output * dpms off"' \
+              resume 'swaymsg "output * dpms on"' \
+         before-sleep 'swaylock -i $lock_bg -f -c 000000' \
+         lock 'swaylock -i $lock_bg -f -c 000000'
 
+bindsym Alt+l exec  loginctl lock-session
 
 
 
@@ -79,6 +80,10 @@ exec swayidle -w \
 
   input type:keyboard {
     repeat_rate 50
+  }
+
+  input type:touch {
+    events disabled
   }
 #
 
@@ -297,9 +302,10 @@ for_window [app_id="zenity"] floating enable;
 
 
 # Autolaunch
-exec {
-  copyq
-}
+# exec {
+#   copyq &
+#   nm-applet & 
+# }
 
 
 include /etc/sway/config.d/*

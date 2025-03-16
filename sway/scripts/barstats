@@ -3,27 +3,30 @@
 # Modules
 ram=$(free -h | awk 'NR==2 {print $3}')
 temp=$(cat /sys/class/thermal/thermal_zone0/temp | cut -c 1-2)
-wifi_name=$(/sbin/iwgetid -r)
+wifi_name=$(nmcli connection show --active | grep wifi | awk '{print $1}')
 ip=$(ip addr show $(ip route show | grep -oP 'default.*dev \K\S+') | awk '$1 == "inet" {gsub(/\/.*$/, "", $2); print $2}')
 charge=$(upower -i /org/freedesktop/UPower/devices/DisplayDevice | grep -E "percentage" | awk '{printf "%.0f%%\n", $2}')
 vol=$(pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}')
 time=$(date +%b\ %d/%m\ %A\ %I:%M\ %p)
 batstate=$(upower -i /org/freedesktop/UPower/devices/DisplayDevice | awk '/state/ {print $2}')
 storage=$(df -h / | awk 'NR==2  {print $5}')
-
+mute=$(pactl get-sink-mute @DEFAULT_SINK@ | awk '{print $2}')
 # Logical functions
 -----------------------------------------------------------------------
 if [ $batstate == "charging" ]; then
-	state="CHARGING..."
+  state="CHARGING..."
 elif [ $batstate == "fully-charged" ]; then
-	state="FULL"
+  state="FULL"
 elif [ $(echo $charge | cut -d% -f1) -lt 30 ] && [ $batstate != "charging" ]; then
-	state="PLEASE CHARGE ME!"
+  state="PLEASE CHARGE ME!"
 else
-	state="BAT"
+  state="BAT"
 fi
 
+if [ $mute == "yes" ]; then
+  isMuted="muted"
+fi
 # Bar runs here
 # -----------------------------------------------------------------------
 
-echo "$wifi_name $ip    CPU $temp°C   DISK $storage   MEM $ram  $state $charge   VOL $vol    $time   "
+echo "$wifi_name $ip    CPU $temp°C   DISK $storage   MEM $ram  $state $charge   VOL $vol $isMuted   $time   "
