@@ -1,5 +1,5 @@
 # Dotfiles for Sway on Debian 12
-
+https://simondalvai.org/blog/debian-sway-v1/
 This repository contains my personal dotfiles for setting up Sway window manager on Debian 12. Below is the list of software installed and the fonts used.
 
 ## Software Installed
